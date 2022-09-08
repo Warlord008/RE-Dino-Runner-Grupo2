@@ -18,6 +18,7 @@ class Game:
         self.game_speed = 20
         self.x_pos_bg = 0
         self.y_pos_bg = 380
+        self.points = 0
         self.player = dinosaur()
         self.obstacle_manager = obstaclemanager()
         self.player_heart_manager = heartmanager()
@@ -67,6 +68,7 @@ class Game:
         self.x_pos_bg -= self.game_speed
 
     def score(self):
+        self.points += 1
         score, score_rect = text_utils.get_score_element(self.points)
         self.screen.blit(score, score_rect)
 

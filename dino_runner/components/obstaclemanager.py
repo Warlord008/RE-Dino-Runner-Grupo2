@@ -1,4 +1,5 @@
 import pygame
+from dino_runner.components import text_utils
 from dino_runner.components.cactus import cactus
 from dino_runner.utils.constants import SMALL_CACTUS
 
@@ -20,4 +21,7 @@ class obstaclemanager():
         for obstacle in self.obstacles: 
             obstacle.draw(screen)
 
+    def score(self):
+        score, score_rect = text_utils.get_score_element(self.points)
+        self.screen.blit(score, score_rect)
 
