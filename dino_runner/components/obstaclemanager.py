@@ -1,5 +1,6 @@
 import pygame
 from dino_runner.components import text_utils
+from dino_runner.components import Birds
 from dino_runner.components.cactus import cactus
 from dino_runner.utils.constants import SMALL_CACTUS
 

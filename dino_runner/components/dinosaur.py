@@ -1,5 +1,5 @@
 from dino_runner.utils.constants import (RUNNING, DUCKING, JUMPING, DEFAULT_TYPE, 
-RUNNING_SHIELD, DUCKING_SHIELD,JUMPING_SHIELD, SHIELD_TYPE)
+RUNNING_SHIELD, DUCKING_SHIELD,JUMPING_SHIELD, SHIELD_TYPE, DINO_DEAD)
 import pygame
 from dino_runner.utils.constants import RUNNING
 
@@ -7,12 +7,13 @@ class dinosaur():
     X_POS = 80
     Y_POS = 310
     JUMP_VEL = 8.5
-    #Y_POS_DUCK = 340
+    Y_POS_DUCK = 340
 
     def __init__(self):
         self.duck_img = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD}
         self.run_img = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD}
         self.jump_img = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD}
+        self.dead_img = DINO_DEAD
         self.type = DEFAULT_TYPE
 
         self.image = self.run_img[self.type][0-1]
@@ -62,12 +63,11 @@ class dinosaur():
             self.step_index = 0
 
     def duck(self):
-        #self.image = self.duck_img[self.type]
-        #self.dino_rect = self.image.get_rect()
-        #self.dino_rect.x = self.X_POS
-        #self.dino_rect.y = self.Y_POS_DUCK
-        #self.step_index += 1
-        pass
+        self.image = self.duck_img[self.type][self.step_index // 5]
+        self.dino_rect = self.image.get_rect()
+        self.dino_rect.x = self.X_POS
+        self.dino_rect.y = self.Y_POS_DUCK
+        self.step_index += 1
 
     def run(self):
         self.image = self.run_img[self.type][self.step_index // 5]

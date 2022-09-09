@@ -85,20 +85,21 @@ class Game:
         white_color = (255,255,255)
         self.screen.fill(white_color)
         self.print_screen_elements(death_count)
-        pygame.display.update()
         self.handle_key_events_on_menu()
+        pygame.display.update()
     
     def print_screen_elements(self, death_count = 0):
         half_screen_height = SCREEN_HEIGHT // 2
-
         if death_count == 0:
             text, text_rect = text_utils.get_centered_message("Press any Key to Start")
             self.screen.blit(text,text_rect)
-        elif death_count > 1:
+        elif death_count > 0:
             score, score_rect = text_utils.get_centered_message("Your score is: "+str(self.points),  height =half_screen_height + 50)
             text, text_rect = text_utils.get_centered_message("Press any Key to restart")
+            death_count, self.death_count_rect = text_utils.get_centered_message("Attempts: "+str(self.death_count),  height =half_screen_height - 50)
             self.screen.blit(text,text_rect)
             self.screen.blit(score,score_rect)
+            self.screen.blit(death_count, self.death_count_rect)
             
     def handle_key_events_on_menu(self):
         for event in pygame.event.get():
@@ -110,4 +111,5 @@ class Game:
                 exit()
 
             if event.type == pygame.KEYDOWN:
+                self.points = 0
                 self.run()
