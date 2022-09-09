@@ -2,7 +2,6 @@ from ctypes import pointer
 from operator import truediv
 import pygame
 import random
-from dino_runner.components.power_ups.powerup import PowerUP 
 
 from dino_runner.components.power_ups.shield import shield
 
@@ -36,7 +35,6 @@ class powerup_manager():
                 player.shield = True
                 player.show_text = True 
                 player.type = power_up.type
-                power_up.start_time = pygame.time.get_ticks()
                 time_random = random.randrange(5,8)
                 player.shield_time_up = power_up.start_time + (time_random * 1000)
                 self.power_ups.remove(power_up)

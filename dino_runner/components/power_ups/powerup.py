@@ -1,6 +1,6 @@
 from cmath import rect
 from email.mime import image
-from utils.constants import SCREEN_HEIGHT
+from dino_runner.utils.constants import SCREEN_HEIGHT
 import random
 from pygame.sprite import Sprite
 
