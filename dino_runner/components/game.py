@@ -3,7 +3,6 @@ from dino_runner.components.obstaclemanager import obstaclemanager
 from dino_runner.components.dinosaur import dinosaur
 from dino_runner.components.player_hearts.heartmanager import heartmanager
 from dino_runner.components import text_utils
-
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
 
 
@@ -25,7 +24,6 @@ class Game:
 
 
     def run(self):
-        # Game loop: events - update - draw
         self.playing = True
         while self.playing:
             self.events()
@@ -39,6 +37,9 @@ class Game:
                 self.playing = False
 
     def update(self):
+        user_input = pygame.key.get_pressed()
+        self.player.update(user_input)
+        self.power_up_manager.update(self.points, self.game_speed, self.player)
         self.obstacle_manager.update(self)
 
     def draw(self):
@@ -48,13 +49,8 @@ class Game:
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.player_heart_manager.draw(self.screen)
-        #Fuentes
-        #font = pygame.font.Font('freesansbold.ttf', 30)
-        #black_color = (0,0,0) 
-        #text = font.render("Texto a mostrar", True, black_color)
-        #text_rect = text.get_rect()
-        #text_rect.center = (70,70)
-        #self.blit(text, text_rect)
+        self.power_up_manager.draw(self.screen)
+        self.score()
         pygame.display.update()
         pygame.display.flip()
 
@@ -69,6 +65,9 @@ class Game:
 
     def score(self):
         self.points += 1
-        score, score_rect = text_utils.get_score_element(self.points)
+        if self.points % 100 == 0:
+            self.game_speed += 1
+        score, score_rect = get_score_element(self.points)
+        self.player.check_visibility(self.screen)
         self.screen.blit(score, score_rect)
 
